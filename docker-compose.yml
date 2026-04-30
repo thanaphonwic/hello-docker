@@ -1,0 +1,6 @@
+services:
+  my-web:
+    build: .             # บอกให้สร้าง Image จาก Dockerfile ในโฟลเดอร์นี้
+    ports:
+      - "8080:80"        # แมปพอร์ตเหมือนตอนใช้คำสั่ง -p
+    container_name: compose-web-app  # ตั้งชื่อ Container ให้เลย
