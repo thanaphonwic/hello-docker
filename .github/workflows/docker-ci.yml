@@ -1,0 +1,27 @@
+name: Docker CI Pipeline
+
+# ทำงานอัตโนมัติเมื่อมีการ Push โค้ดขึ้นไปที่ Branch 'main'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    # เลือกเครื่องเซิร์ฟเวอร์ฟรีที่ GitHub มีให้ (ใช้ Ubuntu ล่าสุด)
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: ดึงโค้ดของเราจาก GitHub มาลงที่เซิร์ฟเวอร์
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      # Step 2: เตรียมความพร้อมสำหรับคำสั่ง Docker
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      # Step 3: สั่งรันคำสั่ง Build Image จริงๆ (เพื่อทดสอบว่าโค้ดพังไหม)
+      - name: 🔨 Build Docker Image
+        run: |
+          docker build -t my-custom-app .
+          echo "✅ Docker Image ถูกสร้างสำเร็จแล้ว ไม่มีอะไรพัง!"
